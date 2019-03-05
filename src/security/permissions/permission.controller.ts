@@ -18,6 +18,11 @@ export class PermissionController {
         return this.permissionService.createPermission(permission);
     }
 
+    @Get('/example')
+    example() {
+        return this.permissionService.fullPermmissionsAuto();
+    }
+
     @Delete('/:id')
     removePermission(@Param('id') id: number) {
         return this.permissionService.removepermission(id);

@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TvShow } from './tv-show.entity';
+import { TvShowDTO } from './tv-show.dto';
 
 @Injectable()
 export class TvShowService {
@@ -10,11 +11,23 @@ export class TvShowService {
     private readonly tvShowRepository: Repository<TvShow>,
   ) {}
 
-  async findAll(): Promise<TvShow[]> {
-    return await this.tvShowRepository.find();
+  async findAll(perpage: number, page: number, newest?: boolean) {
+    const tvShows = await this.tvShowRepository.find({
+      take: perpage,
+      skip: perpage * (page - 1),
+    });
+    return tvShows;
   }
 
-  async createTvShow(tvShow: TvShow): Promise<TvShow> {
+  async findTvShow(id: number) {
+    const tvShow = await this.tvShowRepository.findOne({where: {id}});
+    if (!tvShow) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    return tvShow;
+  }
+
+  async createTvShow(tvShow: TvShowDTO) {
     return this.tvShowRepository.save(tvShow);
   }
 

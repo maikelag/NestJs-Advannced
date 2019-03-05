@@ -5,6 +5,8 @@ import * as jwt from 'jsonwebtoken';
 
 import { User } from './user.entity';
 import { Role } from '../roles/role.entity';
+import { Permission } from '../permissions/permission.entity';
+import { of } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -67,12 +69,14 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    user.roles.forEach(async (el, index) => {
-      user.roles[index] = await this.rolesRepository.findOne({
-        where: { id: el.id },
+
+    for (let i = 0; i < user.roles.length; i++) {
+      const rsd = await this.rolesRepository.findOne({
+        where: { id: user.roles[i].id },
         relations: ['permissions'],
       });
-    });
+      user.roles[i] = rsd;
+    }
     const idUser = user.id;
 
     const token = jwt.sign(
