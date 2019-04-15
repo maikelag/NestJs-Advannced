@@ -5,10 +5,13 @@ export class TvShow {
     @PrimaryGeneratedColumn() id: number;
 
     @Column({length: 160})
-    name: string;
+    title: string;
 
-    @Column({length: 160})
+    @Column({length: 2000, nullable: true})
     description: string;
+
+    @Column({length: 250, nullable: true})
+    actor: string;
 
     @Column()
     scoring: number;

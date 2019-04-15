@@ -3,7 +3,7 @@
   "host": "127.0.0.1",
   "port": 5432,
   "username": "postgres",
-  "password": "123",
+  "password": "postgres",
   "database": "nest",
   "entities": ["src/**/**.entity{.ts,.js}"],
   "synchronize": true,

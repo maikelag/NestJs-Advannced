@@ -1,26 +1,22 @@
 import { IsNotEmpty, IsInt, Max, Min } from 'class-validator';
 
-export class TvShowDTO {
+export class NewsDTO {
     @IsNotEmpty()
     title: string;
 
     @IsNotEmpty()
     description: string;
 
-    @IsNotEmpty()
-    scoring: number;
-
-    actor: string;
+    category: string;
 
     image: string;
 }
 
 // tslint:disable-next-line:max-classes-per-file
-export class TvShowRO {
+export class NewsRO {
     id?: string;
     title: string;
     description: string;
-    actor: string;
-    scoring: number;
+    category: string;
     image?: string;
 }

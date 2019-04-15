@@ -27,12 +27,15 @@ export class UsersService {
     userToCreate.password = user.password;
 
     user.roles.map(async r => {
-        const roleFind = await this.rolesRepository.findOne({where: {id: r.id}});
-        if (roleFind) {
-            userToCreate.roles.push(roleFind);
-        }
+      const roleFind = await this.rolesRepository.findOne({
+        where: { id: r.id },
+      });
+      if (roleFind) {
+        userToCreate.roles.push(roleFind);
+      }
     });
-    return await this.usersRepository.save(user);
+    const user2 = await this.usersRepository.create(user);
+    return await this.usersRepository.save(user2);
   }
 
   async removeUser(id: number) {
@@ -88,6 +91,6 @@ export class UsersService {
       { expiresIn: '7d' },
     );
 
-    return { ...user, token };
+    return { id: user.id, username: user.username, roles: user.roles, token };
   }
 }

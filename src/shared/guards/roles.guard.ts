@@ -26,7 +26,6 @@ export class RolesGuard implements CanActivate {
       request.headers.authorization,
     );
     request.user = userSec.user;
-    console.log(userSec.user.roles);
 
     const user = request.user;
     const hasRole = () =>
@@ -61,7 +60,6 @@ export class RolesGuard implements CanActivate {
     let flag = false;
     let i = 0;
     while (!flag && i < user.roles.length) {
-      console.log(user.roles[i]);
       if (this.roleHasPermission(user.roles[i], permission)) {
         flag = true;
       }
