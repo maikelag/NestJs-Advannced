@@ -53,6 +53,8 @@ export class RolesGuard implements CanActivate {
   }
 
   roleHasPermission(role: Role, permission: string) {
+    console.log(role);
+    console.log(permission);
     return role.permissions.some(el => el.permission === permission);
   }
 

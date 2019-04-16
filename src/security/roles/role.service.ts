@@ -15,7 +15,7 @@ export class RoleService {
         return await this.roleRepository.find({relations: ['permissions']});
     }
 
-    async createRole(role: RoleDTO): Promise<RoleDTO> {
+    async createRole(role: any): Promise<RoleDTO> {
         return this.roleRepository.save(role);
     }
 

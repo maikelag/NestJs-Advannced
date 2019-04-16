@@ -1,6 +1,8 @@
 export const PermissionList = {
     READ_TV_SHOWS: 'Leer tv shows',
     WRITE_TV_SHOWS: 'Escribir tv shows',
+    READ_NEWS: 'Leer noticias',
+    WRITE_NEWS: 'Escribir noticias',
     READ_USERS: 'Leer usuarios',
     WRITE_USERS: 'Escribir usuarios',
     READ_ROLES: 'Leer roles',

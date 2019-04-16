@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsInt, Max, Min } from 'class-validator';
+import { User } from '@app/security/users/user.entity';
 
 export class NewsDTO {
     @IsNotEmpty()
@@ -10,6 +11,8 @@ export class NewsDTO {
     category: string;
 
     image: string;
+
+    author: User | number;
 }
 
 // tslint:disable-next-line:max-classes-per-file
