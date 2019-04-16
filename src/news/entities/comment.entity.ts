@@ -13,9 +13,6 @@ export class Comment {
     @CreateDateColumn()
     createdAt: Date;
 
-    @Column({length: 2000, nullable: true})
-    category: string;
-
     @ManyToOne(type => News, news => news.comments)
     news: News;
 
