@@ -9,10 +9,14 @@ import { VoteNews } from './entities/vote-news.entity';
 import { News } from './entities/news.entity';
 import { Comment } from './entities/comment.entity';
 import { User } from '@app/security/users/user.entity';
+import { NewsResolver } from './resolvers/news.resolvers';
+import { CommentResolver } from './resolvers/comment.resolvers';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([News, Comment, VoteComment, VoteNews, User])],
+  imports: [
+    TypeOrmModule.forFeature([News, Comment, VoteComment, VoteNews, User]),
+  ],
   controllers: [NewsController, CommentController],
-  providers: [NewsService, CommentService],
+  providers: [NewsService, CommentService, NewsResolver, CommentResolver],
 })
 export class NewsModule {}

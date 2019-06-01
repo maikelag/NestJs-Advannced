@@ -1,0 +1,34 @@
+type Comment {
+  id: ID!
+  comment: String!
+  news: [News]
+  createdAt: String
+  fatherComment: Comment
+  voteComment: VoteComment
+  author: String
+}
+
+type VoteComment {
+  positivos: Int
+  negativos: Int
+}
+
+input CreateCommentInputData {
+  comment: String
+  idNews: Int
+}
+
+input CommentVote {
+  idComment: Int
+  vote: String!
+}
+
+
+type Query {
+  commentsFind(idNews: Int!): [Comment!]!
+}
+
+type Mutation {
+  commentCreate(commentNew: CreateCommentInputData): Comment!
+  commentVote(commentVote: CommentVote): Comment
+}

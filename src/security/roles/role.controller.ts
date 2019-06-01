@@ -15,13 +15,18 @@ export class RoleController {
     }
 
     @Post()
-    createUser(@Body() role: RoleDTO): Promise<RoleDTO> {
+    createRole(@Body() role: RoleDTO): Promise<RoleDTO> {
         return this.roleService.createRole(role);
     }
 
     @Delete('/:id')
-    removeUser(@Param('id') id: number) {
+    removeRole(@Param('id') id: number) {
         return this.roleService.removeUser(id);
+    }
+
+    @Get('/:id')
+    findOneRole(@Param('id') roleId: number) {
+        return this.roleService.findOneRole(roleId);
     }
 
 }

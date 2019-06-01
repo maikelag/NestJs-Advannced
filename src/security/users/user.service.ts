@@ -22,20 +22,7 @@ export class UsersService {
   }
 
   async createUser(user: User): Promise<User> {
-    const userToCreate = new User();
-    userToCreate.username = user.username;
-    userToCreate.password = user.password;
-
-    user.roles.map(async r => {
-      const roleFind = await this.rolesRepository.findOne({
-        where: { id: r.id },
-      });
-      if (roleFind) {
-        userToCreate.roles.push(roleFind);
-      }
-    });
-    const user2 = await this.usersRepository.create(user);
-    return await this.usersRepository.save(user2);
+    return this.usersRepository.save(user);
   }
 
   async removeUser(id: number) {
@@ -92,5 +79,9 @@ export class UsersService {
     );
 
     return { id: user.id, username: user.username, roles: user.roles, token };
+  }
+
+  async whoIAm(userId: number) {
+    return await this.usersRepository.findOne(userId);
   }
 }

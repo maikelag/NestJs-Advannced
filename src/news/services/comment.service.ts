@@ -22,9 +22,13 @@ export class CommentService {
   async findCommentsOfNews(newsId: number) {
     const commentsOfNews = await this.commentRepository.find({
       where: { news: newsId },
-      relations: ['author'],
+      relations: ['author', 'fatherComment'],
     });
-    return commentsOfNews;
+    const arrToSend: any = commentsOfNews;
+    for (const [index, value] of arrToSend.entries()) {
+      arrToSend[index].voteComment = await this.countVotes(value.id);
+    }
+    return arrToSend;
   }
 
   async createComment(comment, userId, newsId) {
@@ -46,7 +50,11 @@ export class CommentService {
       commentId: comment,
       ...vote,
     });
-    return await this.voteCommentRepository.save(voteToCreate);
+    await this.voteCommentRepository.save(voteToCreate);
+    const voOfComment = await this.countVotes(commentId);
+    const objToSend: any = comment;
+    objToSend.voteComment = voOfComment;
+    return objToSend;
   }
 
   async countVotes(commentId: number) {

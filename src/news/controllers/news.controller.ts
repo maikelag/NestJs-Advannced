@@ -45,7 +45,7 @@ export class NewsController {
 
   @Post('/:idnews')
   @UseGuards(new AuthGuard())
-  voteComment(
+  voteNews(
     @Param('idnews') idnews: number,
     @Body() vote,
     @UserDecorator() user,

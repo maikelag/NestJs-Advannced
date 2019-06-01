@@ -10,6 +10,7 @@ import * as jwt from 'jsonwebtoken';
 import { RoleRO } from '../../security/roles/role.dto';
 import { UserRO } from '../../security/users/user.dto';
 import { Role } from 'src/security/roles/role.entity';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -17,20 +18,43 @@ export class RolesGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
-    const perm = this.reflector.get<string[]>('permissions', context.getHandler());
-    const request = context.switchToHttp().getRequest();
-    if (!request.headers.authorization) {
-      return false;
-    }
-    const userSec: any = await this.validateToken(
-      request.headers.authorization,
+    const perm = this.reflector.get<string[]>(
+      'permissions',
+      context.getHandler(),
     );
-    request.user = userSec.user;
+    const request = context.switchToHttp().getRequest();
+    if (request) {
+      if (!request.headers.authorization) {
+        return false;
+      }
+      const userSec: any = await this.validateToken(
+        request.headers.authorization,
+      );
+      request.user = userSec.user;
 
-    const user = request.user;
-    const hasRole = () =>
-      user.roles.some(role => !!roles.find(item => item === role.role));
-    return user && user.roles && this.userHasPermission(request.user, perm[0]);
+      const user = request.user;
+      const hasRole = () =>
+        user.roles.some(role => !!roles.find(item => item === role.role));
+      return (
+        user && user.roles && this.userHasPermission(request.user, perm[0])
+      );
+    } else {
+      const ctx: any = GqlExecutionContext.create(context).getContext();
+      if(!ctx.headers.authorization) {
+        return false;
+      }
+      const userSec: any = await this.validateToken(
+        ctx.headers.authorization,
+      );
+      ctx.user = userSec.user;
+
+      const user = ctx.user;
+      const hasRole = () =>
+        user.roles.some(role => !!roles.find(item => item === role.role));
+      return (
+        user && user.roles && this.userHasPermission(ctx.user, perm[0])
+      );
+    }
   }
 
   async validateToken(auth: string) {

@@ -1,0 +1,61 @@
+type News {
+  id: ID!
+  title: String!
+  description: String
+  image: String
+  createdAt: String
+  updateAt: String
+  comments: [Comment]
+  category: String
+  source: String
+  author: User
+  voteNews: VoteNews
+}
+
+type VoteNews {
+  positivos: Int
+  negativos: Int
+}
+
+type User {
+    id: Int
+    username: String
+    createdAt: String
+    updateAt: String
+    roles: String
+    news: [News]
+    comments: [Comment]
+    voteComment: String
+    voteNews: String
+
+}
+
+
+input CreateNewsInput {
+  title: String
+  description: String
+  image: String
+  category: String
+  source: String
+}
+
+input NewsVote {
+  id: Int
+  vote: String!
+}
+
+
+type Query {
+  aguacate: String
+  newsFind: [News!]!
+  newsOneFind(idNews: ID!): News
+}
+
+type Mutation {
+  newsAdd(news: CreateNewsInput!): News
+  newsDelete(idNews: ID!): News
+  newsUpdate(idNews: ID!, newsUpdated: CreateNewsInput): News
+  newsVote(newsVote: NewsVote) : News
+}
+
+

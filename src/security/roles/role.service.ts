@@ -24,4 +24,8 @@ export class RoleService {
         return this.roleRepository.remove(userToDelete);
     }
 
+    async findOneRole(roleId: number): Promise<Role> {
+        return this.roleRepository.findOne({where: {id: roleId}, relations: ['permissions']});
+    }
+
 }

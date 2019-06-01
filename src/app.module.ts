@@ -7,9 +7,20 @@ import { TvShowModule } from './tv-show/tv-show.module';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LogginInterceptor } from './shared/loggin.interceptor';
 import { NewsModule } from './news/news.module';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), AuthModule, SecurityModule, TvShowModule, NewsModule],
+  imports: [
+    TypeOrmModule.forRoot(),
+    AuthModule,
+    SecurityModule,
+    TvShowModule,
+    NewsModule,
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      context: ({ req }) => ({ headers: req.headers }),
+    }),
+  ],
   controllers: [],
   providers: [
     {

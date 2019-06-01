@@ -25,6 +25,9 @@ export class News {
     @Column({length: 2000, nullable: true})
     category: string;
 
+    @Column({length: 2000, nullable: true})
+    source: string;
+
     @ManyToOne(type => User, user => user.news)
     author: User;
 

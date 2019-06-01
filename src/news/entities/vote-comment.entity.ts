@@ -4,12 +4,12 @@ import { Comment } from './comment.entity';
 
 @Entity('vote_comment')
 export class VoteComment {
-    @Column()
-    vote: string;
+  @Column()
+  vote: string;
 
-    @ManyToOne(type => Comment, comm => comm.voteComment, {primary: true})
-    commentId: Comment;
+  @ManyToOne(type => Comment, comm => comm.voteComment, { primary: true })
+  commentId: Comment;
 
-    @ManyToOne(type => User, user => user.voteComment, {primary: true})
-    userId: User;
+  @ManyToOne(type => User, user => user.voteComment, { primary: true })
+  userId: User;
 }
