@@ -47,7 +47,7 @@ input NewsVote {
 
 type Query {
   aguacate: String
-  newsFind: [News!]!
+  news: [News!]!
   newsOneFind(idNews: ID!): News
 }
 

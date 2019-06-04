@@ -26,7 +26,7 @@ export class NewsResolver {
   ) {}
 
   @Query()
-  newsFind(): Promise<News[]> {
+  news(): Promise<News[]> {
     return this.newsService.findNews();
   }
 
