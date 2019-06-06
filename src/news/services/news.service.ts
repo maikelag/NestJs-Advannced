@@ -69,7 +69,7 @@ export class NewsService {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
     if (newsToDelete.author.id !== userId) {
-      throw new HttpException('Incorrect User', HttpStatus.UNAUTHORIZED);
+      // throw new HttpException('Incorrect User', HttpStatus.UNAUTHORIZED);
     }
     await this.newsRepository.delete({ id });
     return newsToDelete;
