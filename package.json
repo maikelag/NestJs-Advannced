@@ -32,7 +32,7 @@
     "@types/morgan": "^1.7.35",
     "apollo-server-express": "^2.3.1",
     "cache-manager": "^2.9.0",
-    "class-transformer": "^0.2.0",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.9.1",
     "compression": "^1.7.3",
     "csurf": "^1.9.0",
